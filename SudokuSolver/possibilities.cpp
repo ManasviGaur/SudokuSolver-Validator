@@ -1,6 +1,5 @@
 #include "frame.cpp"
 class Possibilities{
-
     struct node{
         int value;
         struct node* next;
@@ -14,7 +13,6 @@ class Possibilities{
         head=new struct node;
         head->next=NULL;
     }
-
     public:~Possibilities(){
         destroy();
     }
@@ -46,7 +44,6 @@ class Possibilities{
 
         return -1;
     }
-
     public:int length(){
         pos=head->next;
         int count=0;
@@ -73,7 +70,6 @@ class Possibilities{
             pos=pos->next;
         }
     }
-
     private:void destroy(){
         Node temp;
         pos=head;
@@ -83,5 +79,4 @@ class Possibilities{
             delete temp;
         }
     }
-
 };
