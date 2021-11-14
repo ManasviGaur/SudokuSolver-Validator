@@ -3,13 +3,10 @@
 
 class SudokuValidator{
     public: SudokuFrame frame;
-
-    public:SudokuValidator(){
-            //validateFrame();
-    }
     public:bool checkValidity(){
         return validateFrame();
     }
+    
     private:bool validateFrame(){
         if(valuesAreValid())
             if(rowsAreValid())
@@ -76,12 +73,10 @@ class SudokuValidator{
 };
 
 class SudokuSolver: public SudokuValidator{
-    //int recursiveCount;
     public: SudokuSolver(){
         if(!checkValidity()){
             std::cout << "Invalid Problem\n";
         }else{
-            //recursiveCount=0;
             solve();
             std::cout<<" Yay! Your puzzle has been solved!\n\n";
             displayFrame();
@@ -91,14 +86,12 @@ class SudokuSolver: public SudokuValidator{
 
     private:bool cellValueValid(int row, int col, int currentValue){
         int row_val, col_val;
-
         for(row_val=0; row_val<9; row_val++){
             if(row_val!=row){
                 int comparingVal=frame.getCellVal(row_val,col);
                 if(comparingVal==currentValue) return false;
             }
         }
-
         for(col_val=0; col_val<9; col_val++){
             if(col_val!=col){
                 int comparingVal=frame.getCellVal(row,col_val);
@@ -106,10 +99,8 @@ class SudokuSolver: public SudokuValidator{
             }
         }
         if(ThreeByThreeGridValid(row,col,currentValue)==false) return false;
-
         return true;
     }
-
     private:bool ThreeByThreeGridValid(int row, int col, int currentValue){
         int rowStart=(row/3)*3;
         int rowEnd=(rowStart+2);
@@ -122,10 +113,8 @@ class SudokuSolver: public SudokuValidator{
                 if(frame.getCellVal(row_val,col_val)==currentValue) return false;
             }
         }
-
         return true;
     }
-
     private:Possibilities getCellPossibilities(int row, int col){
         int iter=0;
 
@@ -138,16 +127,10 @@ class SudokuSolver: public SudokuValidator{
 
         return possibilities;
     }
-
     private:int singleCellSolve(int row, int col){
-
-        //statsIncrement();
-
         if(frame.isEditable(row,col)==true){
-
             Possibilities possibilities;
             possibilities.copy(getCellPossibilities(row,col));
-
             int posLength=possibilities.length();
             int posIter=0, newRow=row, newCol=col;
 
@@ -161,47 +144,28 @@ class SudokuSolver: public SudokuValidator{
                     newRow=row+1;
                     newCol=0;
                 }
-
-                {
-
-                    if(singleCellSolve(newRow,newCol)==0){
-                        frame.clearFrameFrom(newRow,newCol);
-                    }
-                    else return 1;
-
+                if(singleCellSolve(newRow,newCol)==0){
+                    frame.clearFrameFrom(newRow,newCol);
                 }
-
+                else return 1;
             }
-
             return 0;
-
         }
         else{
-
             int newRow=row, newCol=col;
-
             if(col<8) newCol=col+1;
             else if(col==8){
                 if(row==8) return 1;
                 newRow=row+1;
                 newCol=0;
             }
-
             return singleCellSolve(newRow,newCol);
-
         }
-
     }
     private:void solve(){
         int success=singleCellSolve(0,0);
     }
-
     private:void displayFrame(){
         frame.displayFrame();
     }
-
-    private:void statsIncrement(){
-        //recursiveCount++;
-    }
-
 };
