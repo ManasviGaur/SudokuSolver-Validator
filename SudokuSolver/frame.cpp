@@ -38,7 +38,6 @@ class SudokuFrame{
             }
         }
     }
-
     private:void readFrameValues(){
         std::cout<<"\nEnter the specified values.\n";
         std::cout<<"Enter 0 if cell is empty.\n\n";
@@ -70,23 +69,16 @@ class SudokuFrame{
             std::cout<<"-------\n";
         }
     }
-
-
     public:void setCellValue(int row, int col, int num){
         if(editableFrame[row][col]==0) sudokuFrame[row][col]=num;
     }
-
-
     public:int getCellVal(int row, int col){
         int cellValue=sudokuFrame[row][col];
         return cellValue;
     }
-
-
     public:int isEditable(int row, int col){
         return (editableFrame[row][col]-1)*(-1);
     }
-
     public:void clearFrameFrom(int row, int col){
         int jcount=0;
         int row_val, col_val;
@@ -104,7 +96,6 @@ class SudokuFrame{
 
         }
     }
-
     public:void displayFrame(){
 
         std::cout<<"==========================================";
@@ -130,5 +121,4 @@ class SudokuFrame{
         }
 
     }
-
 };
